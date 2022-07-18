@@ -64,10 +64,13 @@ function randomico#Aleatorio0a9()
       " converte num decimal.
       return str2nr(l:col, 10)
    else
-      " se não houver 'tabelas', uso rotina
-      " simples até que haja no mínimo duas.
-      call randomico#CriaTabelas()
       return Numero0a9()
    endif
 endfunction
 
+" se não houver 'tabelas', uso rotina
+" criam-se todas 100(ou a quantia que
+" foi pré-definida).
+if TotalTabelas() != 100
+   call randomico#CriaTabelas()
+endif
