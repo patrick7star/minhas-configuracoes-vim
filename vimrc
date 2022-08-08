@@ -4,7 +4,7 @@ set shiftwidth=3
 set softtabstop=3
 set expandtab " definindo tabs como espaços.
 set autoindent " indentação automática.
-"set smartindent "indentação inteligente.
+set smartindent "indentação inteligente.
 
 " opções do editor:
 set number " mostrar linhas
@@ -33,10 +33,32 @@ call setenv("PYTHON_CODES", "$HOME/Documents/códigos/")
 " de cor no ínicio do programa. A mesma função
 " que seleciona o próximo aleatóriamente, vai
 " cuidar da 'seleção inicial'.
-call temas_i#MudaTema(temas_i#SelecionaTema())
+call temas#MudaTema(temas#SelecionaTema())
 
 " aparência da dobra.
 set foldtext=dobra#FoldMsg()
 " tipo de escolher indentação mais conveniênte.
 set foldmethod=indent
 
+" sabatina de testes:
+"function TesteAleatorio0a9(temporizador)
+"   echo randomico#Aleatorio(1, 100)
+"endfunction
+
+"let temporizador = timer_start(
+"\200,
+"\"TesteAleatorio0a9",
+"\{'repeat':-1}
+"\)
+
+" troca de nomes dos arquivos de tabela 
+" à cada meia-hora.
+function TrocaNomesDeArquivos(embaralha)
+   call randomico#Embaralha()
+endfunction
+
+let embaralha = timer_start(
+\30 * 60 * 1000,
+\"TrocaNomesDeArquivos",
+\{'repeat': 3}
+\)
