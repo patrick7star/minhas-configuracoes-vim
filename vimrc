@@ -4,13 +4,14 @@ set shiftwidth=3
 set softtabstop=3
 set expandtab " definindo tabs como espaços.
 set autoindent " indentação automática.
-set smartindent "indentação inteligente.
+"set smartindent "indentação inteligente.
 
 " opções do editor:
 set number " mostrar linhas
 set nowrap " não dobrar linha.
 
-"set lines=33
+"set lines=35
+"set columns=80
 set incsearch " realça primeira palavra detectada.
 set cursorline
 
@@ -26,8 +27,8 @@ let g:netrw_list_hide= '^\..*'
 set mouse=a
 
 " novas váriavels de ambiente.
-call setenv("RUST_CODES", "$HOME/Documents/códigos_rust")
-call setenv("PYTHON_CODES", "$HOME/Documents/códigos/")
+call setenv("RUST_CODES", "$HOME/Documents/rust-codes")
+call setenv("PYTHON_CODES", "$HOME/Documents/python-codes/")
 
 " chama função inicialmente para ter um esquema
 " de cor no ínicio do programa. A mesma função
@@ -41,15 +42,15 @@ set foldtext=dobra#FoldMsg()
 set foldmethod=indent
 
 " sabatina de testes:
-"function TesteAleatorio0a9(temporizador)
-"   echo randomico#Aleatorio(1, 100)
-"endfunction
+function TesteAleatorio(temporizador)
+   echo printf("número randômico: %d",randomico#AleatorioI(1, 100))
+endfunction
 
-"let temporizador = timer_start(
-"\200,
-"\"TesteAleatorio0a9",
-"\{'repeat':-1}
-"\)
+let temporizador = timer_start(
+\20 * 60 * 1000,
+\"TesteAleatorio",
+\{'repeat':-1}
+\)
 
 " troca de nomes dos arquivos de tabela 
 " à cada meia-hora.
@@ -58,7 +59,7 @@ function TrocaNomesDeArquivos(embaralha)
 endfunction
 
 let embaralha = timer_start(
-\30 * 60 * 1000,
+\45 * 60 * 1000,
 \"TrocaNomesDeArquivos",
 \{'repeat': 3}
 \)
