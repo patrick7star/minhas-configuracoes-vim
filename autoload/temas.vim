@@ -14,7 +14,7 @@ let g:esquemas_cores = [
 " escolha um tema aleatório dos disponíveis.
 function temas#SelecionaTema()
    let fim = len(g:esquemas_cores)-1
-   let indice = randomico#Aleatorio(0, fim) 
+   let indice = randomico#AleatorioI(0, fim) 
    let tema_escolhido = g:esquemas_cores[l:indice]
    return l:tema_escolhido
 endfunction

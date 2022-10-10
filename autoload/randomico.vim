@@ -126,3 +126,23 @@ function randomico#Embaralha()
    endif
 endfunction
 
+" gerador randômico bem mais eficiente
+" que o acima.
+function randomico#AleatorioI(i, f)
+   let linhas = readfile("/dev/random", "b", 10)
+   " computando número ...
+   let S = 0
+
+   " soma os bytes de todas as linhas.
+   for linha in l:linhas
+      for byte in linha
+         let S = l:S + byte
+      endfor
+   endfor
+
+   " limita o valor sorteado baseado nos 
+   " 'upper/bottom bounds' passados por
+   " parâmetro.
+   return a:i + l:S % ((a:f-a:i) + 1)
+endfunction
+
