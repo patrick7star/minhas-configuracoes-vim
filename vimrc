@@ -63,3 +63,17 @@ let embaralha = timer_start(
 \"TrocaNomesDeArquivos",
 \{'repeat': 3}
 \)
+
+" visualizando atual tema.
+function NomeDoTema(mostra_nome)
+   let nome = getenv("ATUAL_TEMA")
+   echo printf("o tema atual é '%s'", l:nome)
+endfunction
+
+" à cada 15min.
+let mostra_nome = timer_start(
+\ 15 * 60 * 1000,
+\ "NomeDoTema",
+\{ 'repeat': 5 }
+\)
+cat: 1: No such file or directory
