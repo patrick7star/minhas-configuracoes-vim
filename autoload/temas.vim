@@ -92,6 +92,9 @@ function temas#MudaTema(escolha)
       colorscheme PaperColor
       let g:PaperColor_Theme_Options = {'python':{'highlight_builtins':1}}
    endif
+
+   " registra o tema escolhido.
+   call setenv("ATUAL_TEMA", a:escolha)
 endfunction
 
 " filtra temas intrisica ao sistema.
