@@ -32,104 +32,10 @@ set foldmethod=indent
 let g:netrw_list_hide= '^\..*'
 "let g:netrw_list_hide= '.*\.swp$'
 
-let g:esquemas_cores = [
-\ "onedark", "gruvbox", "tender",
-\ "papercolor", "onehalfdark", 
-\ "one", "solarized","aurora",
-\ "sublimemonokai"]
-   
-" escolha um tema aleatório dos disponíveis.
-function SelecionaTema()
-   let num_selecionado = randomico#Aleatorio0a9()
-   let calculo = l:num_selecionado % len(g:esquemas_cores) 
-   let tema_escolhido = g:esquemas_cores[l:calculo]
-   return l:tema_escolhido
-endfunction
-
-" função que troca o esquema de cores ao ser chamada.
-function MudaTema(escolha)
-   if a:escolha == "onedark"
-      "OneDark Theme
-      if (has("termguicolors"))
-        set termguicolors
-      endif
-      syntax on 
-      colorscheme onedark
-      set background=dark
-      let g:airline_theme='onedark'
-      let g:lightline ={'colorscheme':'onedark'}
-   elseif a:escolha == "aurora"
-      "Aurora
-      set termguicolors
-      colorscheme aurora
-   elseif a:escolha == "sublimemonokai"
-      syntax on 
-      colorscheme sublimemonokai
-   elseif a:escolha == "solarized"
-      "Solarized
-      set background=dark
-      colorscheme solarized
-      let g:solarized_contrast=1
-      let g:solarized_visibility=1
-      let g:solarized_bold=1
-      let g:solarized_degrade=1
-   elseif a:escolha == "gruvbox"
-      "Gruvbox
-      set t_Co=256
-      colorscheme gruvbox
-      set background=dark
-   elseif a:escolha == "tender"
-      "Tender Theme
-      if (has("termguicolors"))
-         set termguicolors
-      endif
-      syntax enable
-      colorscheme tender
-      let g:lightline={'colorscheme':'tenderplus'}
-      let g:airline_theme='tender'
-   elseif a:escolha == "papercolor"
-      " PaperColor Theme
-      set t_Co=256
-      set background=dark
-      colorscheme PaperColor
-      let g:PaperColor_Theme_Options = {'python':{'highlight_builtins':1}}
-   elseif a:escolha == "onehalfdark"
-      " OneHalf Theme
-      set t_Co=256
-      set cursorline
-      colorscheme onehalfdark
-      let g:airline_theme='onehalfdark'
-      " lightline
-      let g:lightline={'colorscheme':'onehalfdark'}
-      if exists('+termguicolors')
-        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-        set termguicolors
-      endif
-   else
-      "Vim One
-      colorscheme one
-      set background=dark
-      let g:one_allow_italic=1
-      let g:airline_theme='one'
-   endif
-endfunction
 
 "tem inicial seleicionado ...
-call MudaTema(SelecionaTema())
-
-" com um temporizador como argumento
-" troca para novo esquema a cada 1h.
-"function TrocaEsquemaDeCores(temporizador_de_troca)
-"   call MudaTema(SelecionaTema())
-"endfunction
-" criando temporizador para determinada função ...
-" nunca esgota desde o primeiro acionamento.
-"let temporizador_de_troca = timer_start(
-"\60*60*1000, 
-"\'TrocaEsquemaDeCores', 
-"\{'repeat':-1}
-"\)
+"call MudaTema(SelecionaTema())
+call temas#MudaTema(temas#SelecionaTema())
 
 function RetornaDimensaoInicial(temporizador_resize)
    " razão 33 linhas/225 pixels
@@ -144,7 +50,7 @@ endfunction
 
 " temporizador retorna dimensão inicial:
 let temporizador_resize = timer_start(
-\6*1000,
+\600*1000,
 \'RetornaDimensaoInicial',
 \{'repeat':-1}
 \)
