@@ -8,8 +8,14 @@ let g:esquemas_cores = [
 \  "tender",
 \  "rigel",
 \  "one_half_dark",
+\  "onehalflight",
 \  "sonokai",
-\  "PaperColor" ]
+\  "PaperColor",
+\  "sublimemonokai",
+\  "solarized",
+\  "aurora",
+\  "onedark",
+\]
 
 " escolha um tema aleatório dos disponíveis.
 function temas#SelecionaTema()
@@ -21,13 +27,18 @@ endfunction
 
 " função que troca o esquema de cores ao ser chamada.
 function temas#MudaTema(escolha)
+   call EmbalharaTemas()
    " caindo na seleção ...
    if a:escolha == "gruvbox"
       " GRUVBOX theme.
       colorscheme gruvbox
       let g:gruvbox_termcolors=256
-      "set background=light
-      set background=dark
+      " versão escura ou clara.
+      if randomico#Booleano()
+         set background=light
+      else
+         set background=dark
+      endif
 
    elseif a:escolha == 'everforest'
       " Everforest theme.
@@ -62,11 +73,24 @@ function temas#MudaTema(escolha)
       "lightline:
       "let g:lightline = {'colorscheme':'onehalflight'}
 
+   elseif a:escolha == 'onehalflight'
+      " OneHalfLight theme:
+      set t_Co=256
+      "set cursorline
+      colorscheme onehalflight
+      "let g:airline_theme='onehalflight'
+      "lightline:
+      let g:lightline = {'colorscheme':'onehalflight'}
+
    elseif a:escolha == 'one'
       "One theme:
       colorscheme one
-      "set background=light
-      set background=dark
+      " versão escura ou clara.
+      if randomico#Booleano()
+         set background=light
+      else
+         set background=dark
+      endif
       let g:airline_theme='one'
 
    elseif a:escolha == 'shades_of_purple'
@@ -88,10 +112,39 @@ function temas#MudaTema(escolha)
    elseif a:escolha == "PaperColor"
       " PaperColor Theme
       set t_Co=256
-      set background=dark
+      " versão escura ou clara.
+      if randomico#Booleano()
+         set background=light
+      else
+         set background=dark
+      endif
       colorscheme PaperColor
       let g:PaperColor_Theme_Options = {'python':{'highlight_builtins':1}}
+
+   elseif a:escolha == "sublimemonokai"
+      syntax on
+      colorscheme sublimemonokai
+      set termguicolors
+      set t_Co=256
+
+   elseif a:escolha == "aurora"
+      colorscheme aurora
+      set background=dark
+      set termguicolors
+
+   elseif a:escolha == "solarized"
+      syntax enable
+      set background=dark
+      let g:solarized_termcolors=256
+      colorscheme solarized
+
+   elseif a:escolha == "onedark"
+      syntax on 
+      colorscheme onedark
+      let g:onedark_terminal_italics=1
+      let g:onedark_termcolors=256
    endif
+      
 
    " registra o tema escolhido.
    call setenv("ATUAL_TEMA", a:escolha)
@@ -119,6 +172,7 @@ function temas#SelecionaTemaSistema()
    return l:lista[l:indice]
 endfunction
 
+
 " mostra o atual esquema de cor frequentemente.
 function TemaNome(tema_nome)
    echo printf("tema atual: '%s'", getenv("ATUAL_TEMA"))
@@ -126,7 +180,26 @@ endfunction
 
 " uma thread que mostra o nome do atual tema.
 let tema_nome = timer_start(
-\30 * 1000,
+\382 * 1000,
 \"TemaNome",
 \{'repeat': -1 }
 \)
+
+" função embaralha array para que equalizar ainda
+" mais a chance de qualquer tema
+function EmbalharaTemas()
+   " tamanho da lista de temas.
+   let total = len(g:esquemas_cores)
+   " quantia de vezes que serão alternadas(metade do total).
+   let qtd = l:total / 2
+   while l:qtd > 0
+      let p = randomico#AleatorioI(0, l:total-1)
+      let q = randomico#AleatorioI(0, l:total-1)
+      if l:p != l:q
+         let auxiliar = g:esquemas_cores[l:p]
+         let g:esquemas_cores[l:p] = g:esquemas_cores[l:q]
+         let g:esquemas_cores[l:q] = l:auxiliar
+      endif
+      let qtd = l:qtd - 1
+   endwhile
+endfunction
