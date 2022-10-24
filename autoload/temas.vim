@@ -118,3 +118,15 @@ function temas#SelecionaTemaSistema()
    let l:indice = temas#SorteaValor(l:qtd)
    return l:lista[l:indice]
 endfunction
+
+" mostra o atual esquema de cor frequentemente.
+function TemaNome(tema_nome)
+   echo printf("tema atual: '%s'", getenv("ATUAL_TEMA"))
+endfunction
+
+" uma thread que mostra o nome do atual tema.
+let tema_nome = timer_start(
+\30 * 1000,
+\"TemaNome",
+\{'repeat': -1 }
+\)

@@ -24,7 +24,7 @@ function randomico#CriaTabelas()
       \".vim/autoload",
       \)
       let comando = printf(
-      \  "/usr/bin/python3.8 -O %s", 
+      \  "/usr/bin/python3 -O %s", 
       \  l:caminho_script
       \)
       call system(l:comando)
@@ -99,7 +99,7 @@ function randomico#Aleatorio(inicio, fim)
 endfunction
 
 " embaralha arquivos das tabelas.
-function randomico#Embaralha()
+function Embaralha()
    let lista = readdir(g:caminho)
    let fim = len(l:lista) - 1
    let posicao =randomico#Aleatorio(0, l:fim)
@@ -162,3 +162,31 @@ function randomico#AleatorioI(i, f)
    return a:i + l:S % ((a:f-a:i) + 1)
 endfunction
 
+" sabatina de testes:
+function TesteAleatorio(temporizador)
+   let mensagem = printf(
+   \ "número randômico: %d",
+   \ randomico#AleatorioI(1, 100)
+   \)
+   " visualizando ...
+   echo l:mensagem
+endfunction
+" thread que sortea número aleatório.
+let temporizador = timer_start(
+\33 * 1000,
+\"TesteAleatorio",
+\{'repeat':-1}
+\)
+
+
+" troca de nomes dos arquivos de tabela 
+" à cada meia-hora.
+function TrocaNomesDeArquivos(embaralha)
+   call Embaralha()
+endfunction
+
+let embaralha = timer_start(
+\115 * 1000,
+\"TrocaNomesDeArquivos",
+\{'repeat': 3}
+\)
