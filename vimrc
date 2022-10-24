@@ -40,26 +40,3 @@ call temas#MudaTema(temas#SelecionaTema())
 set foldtext=dobra#FoldMsg()
 " tipo de escolher indentação mais conveniênte.
 set foldmethod=indent
-
-" sabatina de testes:
-function TesteAleatorio(temporizador)
-   echo printf("número randômico: %d",randomico#AleatorioI(1, 100))
-endfunction
-
-let temporizador = timer_start(
-\20 * 60 * 1000,
-\"TesteAleatorio",
-\{'repeat':-1}
-\)
-
-" troca de nomes dos arquivos de tabela 
-" à cada meia-hora.
-function TrocaNomesDeArquivos(embaralha)
-   call randomico#Embaralha()
-endfunction
-
-let embaralha = timer_start(
-\45 * 60 * 1000,
-\"TrocaNomesDeArquivos",
-\{'repeat': 3}
-\)
