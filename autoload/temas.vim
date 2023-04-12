@@ -15,6 +15,7 @@ let g:esquemas_cores = [
 \  "solarized",
 \  "aurora",
 \  "onedark",
+\  "tatami"
 \]
 
 " escolha um tema aleatório dos disponíveis.
@@ -43,7 +44,11 @@ function temas#MudaTema(escolha)
    elseif a:escolha == 'everforest'
       " Everforest theme.
       colorscheme everforest
-      set background=dark
+      if randomico#Booleano()
+         set background=light
+      else
+         set background=dark
+      endif
 
    elseif a:escolha == 'tender'
       " TENDER theme.
@@ -126,6 +131,14 @@ function temas#MudaTema(escolha)
       colorscheme sublimemonokai
       set termguicolors
       set t_Co=256
+      if randomico#Booleano()
+         " talvez dê uma tonalidade diferente, más,
+         " ainda no 'modo escuro'.
+         set background=light
+         set background=dark
+      else
+         call printf("tonalidade padrão")
+      endif
 
    elseif a:escolha == "aurora"
       colorscheme aurora
@@ -134,20 +147,43 @@ function temas#MudaTema(escolha)
 
    elseif a:escolha == "solarized"
       syntax enable
-      set background=dark
+      if randomico#Booleano()
+         set background=light
+      else
+         set background=dark
+      endif
       let g:solarized_termcolors=256
       colorscheme solarized
 
    elseif a:escolha == "onedark"
       syntax on 
       colorscheme onedark
+      " a tonalidade muda para algo bom, ainda
+      " questionável, porém muda bastante a tonalidade,
+      " para algo legível. Deixo em dúvida, pode
+      " ser retirado futuramente.
+      if randomico#Booleano()
+         set background=light
+      else
+         set background=dark
+      endif
       let g:onedark_terminal_italics=1
       let g:onedark_termcolors=256
+
+   elseif a:escolha == "tatami"
+      colorscheme tatami 
+      if randomico#Booleano()
+         set background=light
+      else
+         set background=dark
+      endif
    endif
       
 
    " registra o tema escolhido.
    call setenv("ATUAL_TEMA", a:escolha)
+   " visualizando tema escolhido.
+   call printf("====> '%s'", a:escolha)
 endfunction
 
 " filtra temas intrisica ao sistema.
@@ -180,9 +216,9 @@ endfunction
 
 " uma thread que mostra o nome do atual tema.
 let tema_nome = timer_start(
-\382 * 1000,
-\"TemaNome",
-\{'repeat': -1 }
+\  382 * 1000,
+\  "TemaNome",
+\  {'repeat': -1 }
 \)
 
 " função embaralha array para que equalizar ainda
@@ -202,4 +238,22 @@ function EmbalharaTemas()
       endif
       let qtd = l:qtd - 1
    endwhile
+endfunction
+
+" probabilidade de está 'claro'/'escuro'.
+function s:probabilidadeEstaClaro(hora)
+   if a:hora >= 11 && a:hora <=15
+      return 0.83
+   elseif a:hora >= 7 && a:hora < 11
+      return 0.65
+   else
+      return 0.50
+endfunction
+function s:probabilidadeEstaEscuro(hora)
+   if a:hora >= 20 && a:hora <=6
+      return 0.81
+   elseif a:hora >= 16 && a:hora < 20
+      return 0.66
+   else
+      return 0.50
 endfunction
