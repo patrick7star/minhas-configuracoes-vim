@@ -172,11 +172,7 @@ function temas#MudaTema(escolha)
 
    elseif a:escolha == "tatami"
       colorscheme tatami 
-      if randomico#Booleano()
-         set background=light
-      else
-         set background=dark
-      endif
+      set background=light
    endif
       
 
