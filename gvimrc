@@ -1,41 +1,13 @@
+" --- --- --- --- próprio do GVim --- --- --- ---
 set guioptions-=L
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
 set guifont=Monaco\ Regular\ 11  " modificando a fonte do programa.
 
-" tabulação e indentação.
-set autoindent
-set shiftwidth=3
-set softtabstop=3
-set expandtab
-set tabstop=3 
-
-set number " faz o editor mostrar linhas.
-
-" não dobra ao colidir com a borda.
-set nowrap
-
 " dimensão da janela.
 set lines=33 " 30 caractéres verticalmente.
 set columns=80 " 80 caractéres horizontalmente.
-
-"set hlsearch  realçar buscas.
-set incsearch " realçar primeira palavra enquanto digita.
-" marcar a linha do cursor.
-set cursorline
-" dobrador automático.
-set foldmethod=indent
-
-
-"ocultando o entulho...
-let g:netrw_list_hide= '^\..*'
-"let g:netrw_list_hide= '.*\.swp$'
-
-
-"tem inicial seleicionado ...
-"call MudaTema(SelecionaTema())
-call temas#MudaTema(temas#SelecionaTema())
 
 function RetornaDimensaoInicial(temporizador_resize)
    " razão 33 linhas/225 pixels
@@ -54,22 +26,128 @@ let temporizador_resize = timer_start(
 \'RetornaDimensaoInicial',
 \{'repeat':-1}
 \)
+" --- --- --- --- --- --- ---
 
-function DobraMensagem()
-   let l:qtd = abs(v:foldstart - v:foldend)+1
-   let l:recuo = repeat("---", v:foldlevel)
-   let l:informacao = join([l:qtd, "linhas"])
-   let l:barra = join([
-   \"+--", l:recuo,
-   \'[', l:informacao,
-   \']'], '') 
-   return l:barra
-endfunction
+" --- --- --- --- cópia do 'vimrc' --- --- --- ---
 
-set foldtext=DobraMensagem()
+"   set nocompatible              " be iMproved, required
+"   filetype off                  " required
 
-" caminhos para diretórios com códigos:
-call setenv("RUST_CODES", "/home/savio/Documents/códigos_rust")
-call setenv("PYTHON_CODES", "/home/savio/Documents/códigos")
+"   " set the runtime path to include Vundle and initialize
+"   set rtp+=~/.vim/bundle/Vundle.vim
+"   call vundle#begin()
+   " alternatively, pass a path where Vundle should install plugins
+   "call vundle#begin('~/some/path/here')
 
+   " let Vundle manage Vundle, required
+"   Plugin 'VundleVim/Vundle.vim'
+
+   " The following are examples of different formats supported.
+   " Keep Plugin commands between vundle#begin/end.
+   " plugin on GitHub repo
+"   Plugin 'tpope/vim-fugitive'
+   " plugin from http://vim-scripts.org/vim/scripts.html
+   " Plugin 'L9'
+   " Git plugin not hosted on GitHub
+"   Plugin 'git://git.wincent.com/command-t.git'
+   " git repos on your local machine (i.e. when working on your own plugin)
+"   Plugin 'file:///home/gmarik/path/to/plugin'
+   " The sparkup vim script is in a subdirectory of this repo called vim.
+   " Pass the path to set the runtimepath properly.
+"   Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+   " Install L9 and avoid a Naming conflict if you've already installed a
+   " different version somewhere else.
+   " Plugin 'ascenator/L9', {'name': 'newL9'}
+
+   " All of your Plugins must be added before the following line
+"   call vundle#end()            " required
+"   filetype plugin indent off    " required
+   " To ignore plugin indent changes, instead use:
+   "filetype plugin on
+   "
+   " Brief help
+   " :PluginList       - lists configured plugins
+   " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+   " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+   " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+   "
+   " see :h vundle for more details or wiki for FAQ
+   " Put your non-Plugin stuff after this line
+
+" definindo tabs como espaços.
+set expandtab 
+" indentação automática.
+set autoindent 
+"indentação inteligente.
+"set smartindent 
+" espaçamentos utilizados.
+set tabstop=3  
+set shiftwidth=3
+set softtabstop=3
+
+" opções do editor:
+set number " mostrar linhas
+set nowrap " não dobrar linha.
+
+set incsearch " realça primeira palavra detectada.
+set cursorline
+
+" ativando sintaxe-python:
+let g:python_highlight_all=1
+
+" ocultando diretórios gits:
+"let g:netrw_list_hide='.*\.swp$'
+"let g:netrw_list_hide= netrw_gitignore#Hide().'.*\.swp$'
+let g:netrw_list_hide= '^\..*'
+
+" ativando cursor(mouse).
+set mouse=a
+
+" novas váriavels de ambiente.
+call setenv("RUST_CODES", "$HOME/Documents/rust-codes")
+call setenv("PYTHON_CODES", "$HOME/Documents/python-codes/")
+call setenv("OTHER_CODES", "$HOME/Documents/other-codes/")
+
+" chama função inicialmente para ter um esquema
+" de cor no ínicio do programa. A mesma função
+" que seleciona o próximo aleatóriamente, vai
+" cuidar da 'seleção inicial'.
+call temas#MudaTema(temas#SelecionaTema())
+
+" aparência da dobra.
+set foldtext=dobra#FoldMsg()
+" tipo de escolher indentação mais conveniênte.
+set foldmethod=indent
+
+" muda para o diretório do atual arquivo.
+set autochdir
+" --- --- --- --- --- --- ---
+
+" ~~~ ~~~ ~~~ CONFIGURAÇÃO DE PLUGINS ~~~~ ~~~ ~~~ 
+
+" Auto-Pairs
+"Plugin 'auto-pairs'
+" -- Fly-Mode:
+"let g:AutoPairsFlyMode = 1
+"let g:AutoPairsShortcutBackInsert = '<M-b>'
+" -- opções:
+" Ctrl + i para desligar/ligar o AutoPairs.
+"let g:AutoPairsShortcutToggle = '<M-p>'
+"let g:AutoPairs = {
+"\ '(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`',
+"\ '/*':'*/', '<':'>'
+"\}
+
+
+" YouCompleteMe
+"Plugin 'valloric/youcompleteme'
+" -- opções:
+
+
+"  Jedi Python
+"Plugin 'davidhalter/jedi-vim'
+" -- opções:
+"let g:jedi#popup_on_dot=0
+"let g:jedi#use_splits_not_buffers="left" 
+"let g:jedi#popup_select_first=0
 
