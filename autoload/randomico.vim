@@ -171,6 +171,15 @@ function TesteAleatorio(temporizador)
    " visualizando ...
    echo l:mensagem
 endfunction
+
+function randomico#Booleano()
+   if randomico#AleatorioI(0, 9) < 5
+      return v:true 
+   else
+      return v:false
+   endif
+endfunction
+
 " thread que sortea número aleatório.
 let temporizador = timer_start(
 \33 * 1000,
