@@ -15,7 +15,8 @@ let g:esquemas_cores = [
 \  "solarized",
 \  "aurora",
 \  "onedark",
-\  "tatami"
+\  "tatami",
+\  "typewriter"
 \]
 
 " escolha um tema aleatório dos disponíveis.
@@ -173,8 +174,26 @@ function temas#MudaTema(escolha)
    elseif a:escolha == "tatami"
       colorscheme tatami 
       set background=light
+
+   elseif a:escolha == "typewriter"
+      " seleção entre o modo claro e dark.
+      if randomico#Booleano()
+         colorscheme typewriter
+      else
+         colorscheme typewriter-night
+      endif
+      " configura o tema do airline(se ativado).
+      "let g:airline_theme = 'typewriter'
+      " ativa o modo FOCUS pressionando F12.
+      nmap <F12>: Goyo <bar> LimeLight!!!<CR>
+      " mudo o cursor de bloco para i_beam no 'modo de inserção'.
+      "let &t_SI = "\e[5 q"
+      "let &t_EI = "\e[1 q"
+      "augroup myCmds
+      "   au!
+      "   autocmd VimEnter * silent !echo -ne "\e[1 q"
+      "augroup END
    endif
-      
 
    " registra o tema escolhido.
    call setenv("ATUAL_TEMA", a:escolha)
