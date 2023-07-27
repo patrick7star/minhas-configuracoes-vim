@@ -3,65 +3,65 @@ set guioptions-=L
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
-set guifont=Monaco\ Regular\ 11  " modificando a fonte do programa.
+"set guifont=Monaco\ Regular\ 13  " modificando a fonte do programa.
+set guifont=Monolisa\ 12
 
 " dimensão da janela.
-set lines=33 " 30 caractéres verticalmente.
-set columns=80 " 80 caractéres horizontalmente.
+winsize 80 50
 
-function RetornaDimensaoInicial(temporizador_resize)
-   " razão 33 linhas/225 pixels
-   " só muda quantia de linhas se não bater 
-   " a quantia inicial de pixels.
-   let altura = getwininfo()[0]['height']
-   if l:altura != 32
-      "winheight(33)
-      set lines=33
-   endif
-endfunction
+" ajustando posição ..."
+winpos 282 28
 
-" temporizador retorna dimensão inicial:
-let temporizador_resize = timer_start(
-\600*1000,
-\'RetornaDimensaoInicial',
-\{'repeat':-1}
-\)
+" renderização de caractéres unicodes.
+set guiligatures=!\"#$%&()*+-./:<=>?@[]^_{\|~
+
+" só funciona na parte gráfica.
+if has("gui_running")
+   " temporizador retorna dimensão inicial:
+   let temporizador_resize = timer_start(
+   \  15 * 1000,
+   \  'ajusta_tela#RetornaDimensaoInicial',
+   \  {'repeat':-1}
+   \)
+endif
+
 " --- --- --- --- --- --- ---
+
 
 " --- --- --- --- cópia do 'vimrc' --- --- --- ---
 
-"   set nocompatible              " be iMproved, required
-"   filetype off                  " required
+   set nocompatible              " be iMproved, required
+   filetype off                  " required
 
-"   " set the runtime path to include Vundle and initialize
-"   set rtp+=~/.vim/bundle/Vundle.vim
-"   call vundle#begin()
+   " set the runtime path to include Vundle and initialize
+   set rtp+=~/.vim/bundle/Vundle.vim
+   call vundle#begin()
    " alternatively, pass a path where Vundle should install plugins
    "call vundle#begin('~/some/path/here')
 
    " let Vundle manage Vundle, required
-"   Plugin 'VundleVim/Vundle.vim'
+   Plugin 'VundleVim/Vundle.vim'
 
    " The following are examples of different formats supported.
    " Keep Plugin commands between vundle#begin/end.
    " plugin on GitHub repo
-"   Plugin 'tpope/vim-fugitive'
+   Plugin 'tpope/vim-fugitive'
    " plugin from http://vim-scripts.org/vim/scripts.html
    " Plugin 'L9'
    " Git plugin not hosted on GitHub
-"   Plugin 'git://git.wincent.com/command-t.git'
+   Plugin 'git://git.wincent.com/command-t.git'
    " git repos on your local machine (i.e. when working on your own plugin)
-"   Plugin 'file:///home/gmarik/path/to/plugin'
+   Plugin 'file:///home/gmarik/path/to/plugin'
    " The sparkup vim script is in a subdirectory of this repo called vim.
    " Pass the path to set the runtimepath properly.
-"   Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+   Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
    " Install L9 and avoid a Naming conflict if you've already installed a
    " different version somewhere else.
    " Plugin 'ascenator/L9', {'name': 'newL9'}
 
    " All of your Plugins must be added before the following line
-"   call vundle#end()            " required
-"   filetype plugin indent off    " required
+   call vundle#end()            " required
+   filetype plugin indent off    " required
    " To ignore plugin indent changes, instead use:
    "filetype plugin on
    "
@@ -121,22 +121,23 @@ set foldmethod=indent
 
 " muda para o diretório do atual arquivo.
 set autochdir
+
 " --- --- --- --- --- --- ---
 
 " ~~~ ~~~ ~~~ CONFIGURAÇÃO DE PLUGINS ~~~~ ~~~ ~~~ 
 
 " Auto-Pairs
-"Plugin 'auto-pairs'
+Plugin 'auto-pairs'
 " -- Fly-Mode:
 "let g:AutoPairsFlyMode = 1
 "let g:AutoPairsShortcutBackInsert = '<M-b>'
 " -- opções:
 " Ctrl + i para desligar/ligar o AutoPairs.
 "let g:AutoPairsShortcutToggle = '<M-p>'
-"let g:AutoPairs = {
-"\ '(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`',
-"\ '/*':'*/', '<':'>'
-"\}
+let g:AutoPairs = {
+\ '(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`',
+\ '/*':'*/', '<':'>'
+\}
 
 
 " YouCompleteMe
