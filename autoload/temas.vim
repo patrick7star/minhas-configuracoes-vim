@@ -22,7 +22,7 @@ let g:esquemas_cores = [
 " escolha um tema aleatório dos disponíveis.
 function temas#SelecionaTema()
    let fim = len(g:esquemas_cores)-1
-   let indice = randomico#AleatorioI(0, fim) 
+   let indice = randomico#Aleatorio(0, fim) 
    let tema_escolhido = g:esquemas_cores[l:indice]
    return l:tema_escolhido
 endfunction
@@ -244,8 +244,8 @@ function EmbalharaTemas()
    " quantia de vezes que serão alternadas(metade do total).
    let qtd = l:total / 2
    while l:qtd > 0
-      let p = randomico#AleatorioI(0, l:total-1)
-      let q = randomico#AleatorioI(0, l:total-1)
+      let p = randomico#Aleatorio(0, l:total-1)
+      let q = randomico#Aleatorio(0, l:total-1)
       if l:p != l:q
          let auxiliar = g:esquemas_cores[l:p]
          let g:esquemas_cores[l:p] = g:esquemas_cores[l:q]
